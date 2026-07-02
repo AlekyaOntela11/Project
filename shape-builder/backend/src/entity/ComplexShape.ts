@@ -7,27 +7,34 @@ import {
 } from "typeorm";
 
 import { Shape } from "./Shape";
+export type Operation = "ADD" | "SUBTRACT" | "INTERSECT";
 
 @Entity("complex_shapes")
 export class ComplexShape {
 
     @PrimaryGeneratedColumn()
-    id!: number;
+  id!: number;
 
-    @Column()
-    label!: string;
+  @Column()
+  label!: string;
 
-    @ManyToOne(() => Shape)
-    @JoinColumn({ name: "shape1Id" })
-    shape1!: Shape;
+  @Column()
+  shape1Id!: number;
 
-    @ManyToOne(() => Shape)
-    @JoinColumn({ name: "shape2Id" })
-    shape2!: Shape;
+  @Column()
+  shape2Id!: number;
 
-    @Column()
-    operation!: string;
+  @ManyToOne(() => Shape, { eager: true })
+  @JoinColumn({ name: "shape1Id" })
+  shape1!: Shape;
 
-    @Column({ default: 0 })
-    offset!: number;
+  @ManyToOne(() => Shape, { eager: true })
+  @JoinColumn({ name: "shape2Id" })
+  shape2!: Shape;
+
+  @Column()
+  operation!: string;
+
+  @Column({ default: 0 })
+  offset!: number;
 }
