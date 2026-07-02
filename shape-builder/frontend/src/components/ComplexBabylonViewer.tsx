@@ -111,22 +111,28 @@ useEffect(() => {
       const resultMesh = resultCSG.toMesh("combined", null, scene);
 
       // STEP 6: MATERIAL + VISIBILITY (FIXED PLACE)
-      const material = createMaterial(scene);
-      resultMesh.material = material;
+      const mat1 = new BABYLON.StandardMaterial("m1", scene);
+//mat1.diffuseColor = new BABYLON.Color3(1, 0, 0); // red
+mesh1.material = mat1;
 
-      resultMesh.isVisible = true;
-      resultMesh.setEnabled(true);
+const mat2 = new BABYLON.StandardMaterial("m2", scene);
+//mat2.diffuseColor = new BABYLON.Color3(0, 1, 0); // green
+mesh2.material = mat2;
 
-      // STEP 7: DEBUG VISUAL HELP
-      resultMesh.showBoundingBox = true;
+const mat3 = new BABYLON.StandardMaterial("m3", scene);
+//mat3.diffuseColor = new BABYLON.Color3(0, 0, 1); // blue
+resultMesh.material = mat3;
 
-      // STEP 8: CAMERA FIX (important for CSG visibility)
+mesh1.position.x = -data.offset - 2;
+mesh2.position.x = data.offset + 2;
+mesh1.isVisible = true;
+mesh2.isVisible = true;
+resultMesh.isVisible = true;
+resultMesh.showBoundingBox = true;
+
+// STEP 8: CAMERA FIX (important for CSG visibility)
       camera.setTarget(BABYLON.Vector3.Zero());
       camera.radius = 10;
-
-      // STEP 9: CLEAN UP OLD MESHES
-      mesh1.dispose();
-      mesh2.dispose();
     });
 
   engine.runRenderLoop(() => {
