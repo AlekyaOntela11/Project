@@ -4,7 +4,10 @@ export function validateShape(data: any) {
         "Box",
         "Sphere",
         "Cylinder",
-        "Triangle"
+        "Triangle",
+        "Cone",
+        "Torus",
+        "Disc"
     ];
 
     const allowedColors = [

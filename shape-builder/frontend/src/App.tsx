@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from './components/NavBar.tsx';
+import Navbar from './components/Navbar.tsx';
 import ShapeList from './pages/ShapeList.tsx';
 import ShapeForm from './pages/ShapeForm.tsx';
 
@@ -10,7 +10,7 @@ function App() {
 
         <BrowserRouter>
 
-            <NavBar />
+            <Navbar />
 
             <Routes>
 
@@ -29,7 +29,7 @@ function App() {
                     element={<ShapeForm />}
 
                 />
-
+ <Route path="/edit/:id" element={<ShapeForm />} />
             </Routes>
 
         </BrowserRouter>
@@ -39,9 +39,3 @@ function App() {
 }
 
 export default App;
-
-// function App() {
-//   return <h1>Shape Builder</h1>;
-// }
-
-// export default App;

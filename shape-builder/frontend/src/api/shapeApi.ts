@@ -7,6 +7,9 @@ const api = axios.create({
 
 export const getShapes = () => api.get<Shape[]>("/shapes");
 
+export const deleteShape = (id: number) =>
+  api.delete(`/shapes/${id}`);
+
 export const getShape = (id: number) =>
   api.get<Shape>(`/shapes/${id}`);
 
@@ -15,8 +18,5 @@ export const createShape = (shape: Shape) =>
 
 export const updateShape = (id: number, shape: Shape) =>
   api.put(`/shapes/${id}`, shape);
-
-export const deleteShape = (id: number) =>
-  api.delete(`/shapes/${id}`);
 
 export default api;

@@ -54,9 +54,10 @@ function ShapeList() {
         border={1}
         cellPadding={10}
         style={{
-          borderCollapse: "collapse",
-          width: "100%"
-        }}
+  borderCollapse: "collapse",
+  width: "100%",
+  marginTop: 20
+}}
       >
 
         <thead>
@@ -113,8 +114,12 @@ function ShapeList() {
                 </button>
 
               </td>
-
+<tr
+  key={shape.id}
+  style={{ cursor: "pointer" }}
+></tr>
             </tr>
+            
 
           ))}
 
@@ -129,3 +134,4 @@ function ShapeList() {
 }
 
 export default ShapeList;
+

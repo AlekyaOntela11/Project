@@ -7,3 +7,8 @@ body {
 * {
   box-sizing: border-box;
 }
+div {
+  padding: 30;
+  max-width: 600;
+  margin: "auto";
+  }
