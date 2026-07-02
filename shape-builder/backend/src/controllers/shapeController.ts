@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../database";
 import { Shape } from "../entity/Shape";
 import { validateShape } from "../validation/shapeValidation";
+import { ComplexShape } from "../entity/ComplexShape";
 
 // GET ALL
 export const getShapes = async (req: Request, res: Response) => {
@@ -101,20 +102,40 @@ export const updateShape = async (req: Request, res: Response) => {
 
 // DELETE
 export const deleteShape = async (req: Request, res: Response) => {
-    try {
-        const repo = AppDataSource.getRepository(Shape);
-        const id = Number(req.params.id);
 
-        const shape = await repo.findOne({ where: { id } });
+  try {
+    const id = Number(req.params.id);
+    console.log("ID RECEIVED:", id);
 
-        if (!shape) {
-            return res.status(404).json({ message: "Shape not found" });
-        }
+    const shapeRepo = AppDataSource.getRepository(Shape);
+    const complexRepo = AppDataSource.getRepository(ComplexShape);
 
-        await repo.remove(shape);
+    // Check if shape exists
+    const shape = await shapeRepo.findOneBy({ id });
+    console.log("FOUND SHAPE:", shape);
 
-        return res.json({ message: "Shape deleted successfully" });
-    } catch {
-        return res.status(500).json({ message: "Delete failed" });
+    if (!shape) {
+      return res.status(404).json({ message: "Shape not found" });
     }
+
+    // IMPORTANT: remove dependencies first
+    console.log("Deleting related complex shapes...");
+    await complexRepo.delete({ shape1: { id } });
+    await complexRepo.delete({ shape2: { id } });
+
+    console.log("Deleting shape...");
+    const result = await shapeRepo.delete(id);
+
+    console.log("DELETE RESULT:", result);
+
+    return res.json({ message: "Deleted successfully", result });
+
+  } catch (err) {
+    console.error("🔥 FULL BACKEND ERROR:", err);
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    return res.status(500).json({
+      message: "Delete failed",
+      error: errorMessage
+    });
+  }
 };
