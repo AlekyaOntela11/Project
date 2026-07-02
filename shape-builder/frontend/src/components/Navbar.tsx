@@ -30,7 +30,20 @@ function Navbar() {
             >
                 New Shape
             </Link>
+            <Link to="/complex-shapes" 
+                style={{
+                    color: "white",
+                    marginRight: 20,
+                    textDecoration: "none"
+                }}>Complex Shapes</Link>
 
+
+            <Link to="/complex-shapes/new"
+                style={{
+                    color: "white",
+                    marginRight: 20,
+                    textDecoration: "none"
+                }}>Create Complex Shape</Link>
         </nav>
 
     );

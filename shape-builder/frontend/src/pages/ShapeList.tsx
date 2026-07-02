@@ -114,10 +114,10 @@ function ShapeList() {
                 </button>
 
               </td>
-<tr
+{/* <tr
   key={shape.id}
   style={{ cursor: "pointer" }}
-></tr>
+></tr> */}
             </tr>
             
 

@@ -3,6 +3,7 @@ import { Shape } from "../types/Shape";
 import { createShape, updateShape, getShape } from "../api/shapeApi.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import BabylonViewer from "../components/BabylonViewer.tsx";
+import ComplexBabylonViewer from "../components/ComplexBabylonViewer.tsx";
 
 function ShapeForm() {
 

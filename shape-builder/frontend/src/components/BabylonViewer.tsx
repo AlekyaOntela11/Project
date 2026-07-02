@@ -9,7 +9,6 @@ import {
   Color3,
   StandardMaterial
 } from "@babylonjs/core";
-
 import { Shape } from "../types/Shape";
 
 interface Props {
@@ -68,7 +67,7 @@ function BabylonViewer({ shape }: Props) {
       meshRef.current.dispose();
     }
 
-    const size = shape.size;
+    const size = shape.size || 2;
 
     switch (shape.shape) {
 
@@ -152,5 +151,4 @@ function BabylonViewer({ shape }: Props) {
   );
 
 }
-
 export default BabylonViewer;
