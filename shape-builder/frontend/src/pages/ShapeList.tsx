@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Shape } from "../types/Shape";
-import {
-  getShapes,
-  deleteShape
-} from "../api/shapeApi";
+import { getShapes, deleteShape } from '../api/shapeApi.ts';
 import { useNavigate } from "react-router-dom";
 
 function ShapeList() {
