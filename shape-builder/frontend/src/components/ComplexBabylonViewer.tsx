@@ -52,7 +52,26 @@ function ComplexBabylonViewer({ id }: { id: number }) {
         mesh = BABYLON.MeshBuilder.CreateSphere(shape.label, {
           diameter: size,
         }, scene);
-      } else {
+      } 
+      else  if (shape.shape === "Cone") {
+              mesh = BABYLON.MeshBuilder.CreateCylinder("cone", {
+                height: size,
+                diameterTop: 0,
+                diameterBottom: size / 1.5
+              }, scene);
+            }
+       else if (shape.shape === "Torus") {
+        mesh= BABYLON.MeshBuilder.CreateTorus("torus", {
+          diameter: size,
+          thickness: size / 3
+        }, scene);
+      } 
+      else if (shape.shape === "Disc") {
+        mesh= BABYLON.MeshBuilder.CreateDisc("disc", {
+          radius: size / 2
+        }, scene);
+      }
+      else {
         mesh = BABYLON.MeshBuilder.CreateCylinder(shape.label, {
           height: size,
           diameter: size * 0.8,

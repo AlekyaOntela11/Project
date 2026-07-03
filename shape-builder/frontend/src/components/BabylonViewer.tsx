@@ -7,8 +7,10 @@ import {
   HemisphericLight,
   MeshBuilder,
   Color3,
+  
   StandardMaterial
 } from "@babylonjs/core";
+import * as BABYLON from "@babylonjs/core";
 import { Shape } from "../types/Shape";
 
 interface Props {
@@ -72,36 +74,36 @@ function BabylonViewer({ shape }: Props) {
     switch (shape.shape) {
 
       case "Box":
-        meshRef.current = MeshBuilder.CreateBox("box", { size }, scene);
+        meshRef.current = BABYLON.MeshBuilder.CreateBox("box", { size }, scene);
         break;
 
       case "Sphere":
-        meshRef.current = MeshBuilder.CreateSphere("sphere", {
+        meshRef.current = BABYLON.MeshBuilder.CreateSphere("sphere", {
           diameter: size
         }, scene);
         break;
 
       case "Cylinder":
-        meshRef.current = MeshBuilder.CreateCylinder("cyl", {
+        meshRef.current = BABYLON.MeshBuilder.CreateCylinder("cyl", {
           height: size,
           diameter: size / 1.5
         }, scene);
         break;
        case "Cone":
-        meshRef.current = MeshBuilder.CreateCylinder("cone", {
+        meshRef.current = BABYLON.MeshBuilder.CreateCylinder("cone", {
           height: size,
           diameterTop: 0,
-          diameterBottom: size / 1.5
+          diameterBottom: size / 1
         }, scene);
         break;
   case "Torus":
-  meshRef.current = MeshBuilder.CreateTorus("torus", {
+  meshRef.current = BABYLON.MeshBuilder.CreateTorus("torus", {
     diameter: size,
     thickness: size / 3
   }, scene);
   break;
   case "Disc":
-  meshRef.current = MeshBuilder.CreateDisc("disc", {
+  meshRef.current = BABYLON.MeshBuilder.CreateDisc("disc", {
     radius: size / 2
   }, scene);
   break;
