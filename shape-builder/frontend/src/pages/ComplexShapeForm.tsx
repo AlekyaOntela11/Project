@@ -40,21 +40,25 @@ function ComplexShapeForm() {
   };
 
   return (
-    <div>
-      <h2>Create Complex Shape</h2>
+    <div style={{ marginLeft: "30px", marginRight: "24px" }}>
+      <h2 style={{ color: "violet" }}>Create Complex Shape</h2>
 
-      <input
+      <input style={{ textDecoration: "none",marginRight: "20px",marginLeft: "25px",marginBottom: "10px" ,display: "flex",
+  gap: "16px",alignItems: "center"}}
         placeholder="Label"
         onChange={e => setForm({ ...form, label: e.target.value })}
       />
 
-      <select
+      <select style={{ textDecoration: "none",marginRight: "20px",marginLeft: "25px",marginBottom: "10px" ,display: "flex",
+  gap: "16px",alignItems: "center"}}
         value={form.shape1Id}
         onChange={e =>
           setForm({ ...form, shape1Id: Number(e.target.value) })
         }
       >
-        <option value="">Select Shape 1</option>
+        <option  value="">
+          Select Shape 1
+        </option>
         {shapes.map(s => (
           <option key={s.id} value={s.id}>
             {s.label}
@@ -62,7 +66,8 @@ function ComplexShapeForm() {
         ))}
       </select>
 
-      <select
+      <select style={{ textDecoration: "none",marginRight: "20px",marginLeft: "25px",marginBottom: "10px" ,display: "flex",
+  gap: "16px",alignItems: "center"}}
         value={form.shape2Id}
         onChange={e =>
           setForm({ ...form, shape2Id: Number(e.target.value) })
@@ -76,7 +81,8 @@ function ComplexShapeForm() {
         ))}
       </select>
 
-      <select
+      <select style={{ textDecoration: "none",marginRight: "20px",marginLeft: "25px",marginBottom: "10px" ,display: "flex",
+  gap: "16px",alignItems: "center"}}
         onChange={e =>
           setForm({ ...form, operation: e.target.value })
         }
@@ -86,7 +92,8 @@ function ComplexShapeForm() {
         <option value="INTERSECT">Intersect</option>
       </select>
 
-      <input
+      <input style={{ textDecoration: "none",marginRight: "20px",marginLeft: "25px",marginBottom: "10px" ,display: "flex",
+  gap: "16px",alignItems: "center"}}
         type="number"
         min={0}
         max={5}
@@ -95,7 +102,8 @@ function ComplexShapeForm() {
         }
       />
 
-      <button onClick={submit}>Create</button>
+      <button  style={{ textDecoration: "none",marginRight: "20px",marginLeft: "25px",marginBottom: "10px" ,display: "flex",
+  gap: "16px",alignItems: "center"}} onClick={submit}>Create</button>
 
       {createdId && (
         <ComplexBabylonViewer id={createdId} />

@@ -2,13 +2,20 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: #f5f5f5;
+  margin-right: 24px;
+    text-decoration: none;
+    margin-left: 30px;
 }
 
 * {
   box-sizing: border-box;
 }
 div {
-  padding: 30;
+  padding: 40;
   max-width: 600;
   margin: "auto";
-  }
+    color: white;
+    margin-right: 24px;
+    text-decoration: none;
+    margin-left: 30px;
+}

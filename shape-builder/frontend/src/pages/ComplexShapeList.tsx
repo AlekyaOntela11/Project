@@ -10,15 +10,13 @@ function ComplexShapeList() {
 
   return (
     <div>
-      <h2>Complex Shapes</h2>
+
+      <h2 style={{ marginLeft: "30px", marginRight: "24px"}}>Complex Shapes</h2>
 
       {data.map(item => (
-        <div key={item.id}>
-          <h3>{item.label}</h3>
-          {/* <p>
-            {item.shape1.label} {item.operation} {item.shape2.label}
-          </p> */}
-          <p>
+        <div style={{ boxSizing: "border-box", marginLeft: "30px", marginRight: "24px",alignItems: "center",fontFamily: "Arial",fontSize: "16px"}} key={item.id}>
+          <h3  style={{ boxSizing: "border-box", marginLeft: "30px", marginRight: "24px",alignItems: "center",fontFamily: "Arial",fontSize: "16px"}}>{item.label}</h3>
+          <p  style={{ boxSizing: "border-box", marginLeft: "30px", marginRight: "24px",alignItems: "center",fontFamily: "Arial",fontSize: "16px"}}>
   {item?.shape1?.label ?? "N/A"} {" "}
   {item?.operation} {" "}
   {item?.shape2?.label ?? "N/A"}

@@ -42,10 +42,11 @@ function ComplexBabylonViewer({ id }: { id: number }) {
 
     // CREATE MESH FUNCTION
     const createMesh = (shape: any, x: number) => {
-      const size = shape.size || 2;
+  const size = Math.max(shape.size || 2, 0.1);
       let mesh;
 
       if (shape.shape === "Box") {
+        //const box = BABYLON.MeshBuilder.CreateBox("box", { size: 2 }, scene);
         mesh = BABYLON.MeshBuilder.CreateBox(shape.label, { size }, scene);
       } else if (shape.shape === "Sphere") {
         mesh = BABYLON.MeshBuilder.CreateSphere(shape.label, {
@@ -63,21 +64,21 @@ function ComplexBabylonViewer({ id }: { id: number }) {
     };
 
     axios.get("http://localhost:8080/api/complex-shapes")
-      .then((res) => {
+      .then(async (res) => {
         const data = res.data.find((x: any) => x.id === Number(id));
 
         if (!data || !data.shape1 || !data.shape2) {
           console.error("Missing data", data);
           return;
         }
-
+        await BABYLON.InitializeCSG2Async();
         console.log("DATA:", data);
 
         // -------------------------
         // STEP 1: CREATE ORIGINAL SHAPES
         // -------------------------
-        const mesh1 = createMesh(data.shape1, -4);
-        const mesh2 = createMesh(data.shape2, 4);
+        const mesh1 = createMesh(data.shape1, 0);
+        const mesh2 = createMesh(data.shape2, 0);
 
         mesh1.material = redMat;
         mesh2.material = greenMat;
@@ -88,23 +89,24 @@ function ComplexBabylonViewer({ id }: { id: number }) {
         const size1 = data.shape1.size || 2;
         const size2 = data.shape2.size || 2;
 
-        mesh1.scaling = new BABYLON.Vector3(size1, size1, size1);
-        mesh2.scaling = new BABYLON.Vector3(size2, size2, size2);
+mesh1.scaling.set(1, 1, 1);
+mesh2.scaling.set(1, 1, 1);
 
-        mesh1.computeWorldMatrix(true);
-        mesh2.computeWorldMatrix(true);
-
+mesh1.refreshBoundingInfo();
+mesh2.refreshBoundingInfo();
+mesh1.computeWorldMatrix(true);
+mesh2.computeWorldMatrix(true);
         // -------------------------
         // STEP 3: CSG OPERATION
         // -------------------------
-        const csg1 = BABYLON.CSG.FromMesh(mesh1);
-        const csg2 = BABYLON.CSG.FromMesh(mesh2);
+        const csg1 = BABYLON.CSG2.FromMesh(mesh1);
+        const csg2 = BABYLON.CSG2.FromMesh(mesh2);
 
         let resultCSG;
-
+console.log("Operation:", data.operation);
         switch (data.operation) {
           case "ADD":
-            resultCSG = csg1.union(csg2);
+            resultCSG = csg1.add(csg2);
             break;
           case "SUBTRACT":
             resultCSG = csg1.subtract(csg2);
@@ -120,15 +122,20 @@ function ComplexBabylonViewer({ id }: { id: number }) {
         // -------------------------
         // STEP 4: RESULT MESH
         // -------------------------
-        const resultMesh = resultCSG.toMesh("result", null, scene);
-        resultMesh.material = blueMat;
+const resultMesh = resultCSG.toMesh("result", scene);
+
+        const resultMat = new BABYLON.StandardMaterial("resultMat", scene);
+        scene.blockMaterialDirtyMechanism = false;
+resultMat.diffuseColor = new BABYLON.Color3(0.2, 0.6, 1);
+resultMesh.material = resultMat
 
         // -------------------------
         // STEP 5: POSITION FOR CLEAR VIEW
         // -------------------------
-        mesh1.position.x = -10;
-        mesh2.position.x = -4;
-        resultMesh.position.x = 10;
+      mesh1.position.x = -10;
+      mesh2.position.x = -5;
+      //   resultMesh.position.x = 1;
+      resultMesh.position.set(0, 0, 0);
 
         // -------------------------
         // STEP 6: VISIBILITY
@@ -149,7 +156,6 @@ function ComplexBabylonViewer({ id }: { id: number }) {
     engine.runRenderLoop(() => {
       scene.render();
     });
-
     window.addEventListener("resize", () => {
       engine.resize();
     });

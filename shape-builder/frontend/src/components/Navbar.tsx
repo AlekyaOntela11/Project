@@ -13,7 +13,7 @@ function Navbar() {
             <Link
                 to="/"
                 style={{
-                    color: "white",
+                    color: "violet",
                     marginRight: 20,
                     textDecoration: "none"
                 }}
@@ -24,7 +24,7 @@ function Navbar() {
             <Link
                 to="/new"
                 style={{
-                    color: "white",
+                    color: "violet",
                     textDecoration: "none"
                 }}
             >
@@ -32,15 +32,16 @@ function Navbar() {
             </Link>
             <Link to="/complex-shapes" 
                 style={{
-                    color: "white",
+                    color: "violet",
                     marginRight: 20,
+                    marginLeft: 25,
                     textDecoration: "none"
                 }}>Complex Shapes</Link>
 
 
             <Link to="/complex-shapes/new"
                 style={{
-                    color: "white",
+                    color: "violet",
                     marginRight: 20,
                     textDecoration: "none"
                 }}>Create Complex Shape</Link>
